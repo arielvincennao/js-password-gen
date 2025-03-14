@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <img src="logo.png" class="logo animate__animated animate__backInDown" alt="Logo">
+        <form id="passwordForm">
+            <!-- Step 1: Plataforma and Longitud máxima -->
+            <div id="step1">
+                <label for="maxLength">Max characters</label>
+                <input type="number" id="maxLength" name="maxLength" min="1" max="20" value="12" required>
+                <input type="button" value="Next" onclick="nextStep()">
+            </div>
+
+            <!-- Step 2: Other fields -->
+            <div id="step2" class="hidden">
+                <label for="maxNumbers">Number of numbers</label>
+                <input type="number" id="maxNumbers" name="maxNumbers" min="0" max="10" value="3">
+
+                <label for="maxUpperCase">Number of uppercases</label>
+                <input type="number" id="maxUpperCase" name="maxUpperCase" min="0" max="10" value="3">
+
+                <label for="maxLowerCase">Number of lowercases</label>
+                <input type="number" id="maxLowerCase" name="maxLowerCase" min="0" max="10" value="3">
+
+                <label for="maxSpecial">Number of special characters</label>
+                <input type="number" id="maxSpecial" name="maxSpecial" min="0" max="10" value="3">
+
+                <input type="button" value="Generate" onclick="generatePassword()">
+                <input type="button" value="Back" onclick="previousStep()">
+            </div>
+        </form>
+        <h2 id="passwordTitle" class="hidden">Your password is:</h2>
+        <h2 id="passwordResult" class="hidden"> - - -</h2>
+
+    </div>
+
+    <script>
+        let savedPasswords = [];
+       
+        function nextStep() {
+            document.getElementById('step1').classList.add('hidden');  // Ocultar step 1
+            document.getElementById('step2').classList.remove('hidden'); // Mostrar step 2
+            document.getElementById('passwordResult').classList.remove('hidden');
+            document.getElementById('passwordTitle').classList.remove('hidden');
+        }
+       
+        function previousStep() {
+            document.getElementById('step2').classList.add('hidden');  // Ocultar step 2
+            document.getElementById('step1').classList.remove('hidden'); // Mostrar step 1
+            document.getElementById('passwordResult').classList.add('hidden');
+            document.getElementById('passwordTitle').classList.add('hidden');
+        }
+
+        function generatePassword() {
+            const plataforma = document.getElementById("plataforma").value;
+            const maxLength = document.getElementById("maxLength").value;
+            const maxNumbers = document.getElementById("maxNumbers").value;
+            const maxUpperCase = document.getElementById("maxUpperCase").value;
+            const maxLowerCase = document.getElementById("maxLowerCase").value;
+            const maxSpecial = document.getElementById("maxSpecial").value;
+        }
+    </script>
+</body>
+
+</html>

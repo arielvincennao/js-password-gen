@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #134E5E;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #71B280, #134E5E);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    color: #1C2D8E;
+    padding: 20px;
+    width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    display: block;
+}
+
+input[type="number"],
+input[type="button"],
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="button"] {
+    background-color: #4CAF50;
+    cursor: pointer;
+}
+
+input[type="button"]:hover {
+    background-color: #45a049;
+}
+
+.logo {
+    height: 15vh;
+    margin-right: 100px;
+}
+
+.hidden {
+    display: none;
+}
+
+.password-list {
+    margin-top: 20px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.password-item {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+h2{
+    text-align: center;
+}
