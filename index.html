@@ -44,15 +44,13 @@
     </div>
 
     <script>
-        let savedPasswords = [];
-       
         function nextStep() {
             document.getElementById('step1').classList.add('hidden');  // Ocultar step 1
             document.getElementById('step2').classList.remove('hidden'); // Mostrar step 2
             document.getElementById('passwordResult').classList.remove('hidden');
             document.getElementById('passwordTitle').classList.remove('hidden');
         }
-       
+
         function previousStep() {
             document.getElementById('step2').classList.add('hidden');  // Ocultar step 2
             document.getElementById('step1').classList.remove('hidden'); // Mostrar step 1
@@ -60,14 +58,67 @@
             document.getElementById('passwordTitle').classList.add('hidden');
         }
 
-        function generatePassword() {
-            const plataforma = document.getElementById("plataforma").value;
-            const maxLength = document.getElementById("maxLength").value;
-            const maxNumbers = document.getElementById("maxNumbers").value;
-            const maxUpperCase = document.getElementById("maxUpperCase").value;
-            const maxLowerCase = document.getElementById("maxLowerCase").value;
-            const maxSpecial = document.getElementById("maxSpecial").value;
+        const charsU = [];
+        const charsD = [];
+        const charsN = [];
+        const charsE = [];
+
+        // Llenar A-Z
+        for (let i = 65; i <= 90; i++) {
+            charsU.push(String.fromCharCode(i));
         }
+
+        // Llenar a-z
+        for (let i = 97; i <= 122; i++) {
+            charsD.push(String.fromCharCode(i));
+        }
+
+        // Llenar 0 - 9
+        for (let i = 48; i <= 57; i++) {
+            charsN.push(String.fromCharCode(i));
+        }
+
+        // Llenar caracteres especiales
+        const specialRanges = [
+            [33, 47],  // ! " # $ % & ' ( ) * + , - . /
+            [58, 64],  // : ; < = > ? @
+            [91, 96],  // [ \ ] ^ _ `
+            [123, 126] // { | } ~
+        ];
+
+        specialRanges.forEach(range => {
+            for (let i = range[0]; i <= range[1]; i++) {
+                charsE.push(String.fromCharCode(i));
+            }
+        });
+
+        function generatePassword() {
+            const maxLength = parseInt(document.getElementById("maxLength").value) || 0;
+            let asignedChars = maxLength;
+
+            // Cantidad de caracteres
+            const maxNumbers = parseInt(document.getElementById("maxNumbers").value) || 0;
+            const maxUpperCase = parseInt(document.getElementById("maxUpperCase").value) || 0;
+            const maxLowerCase = parseInt(document.getElementById("maxLowerCase").value) || 0;
+            const maxSpecial = parseInt(document.getElementById("maxSpecial").value) || 0;
+
+
+            if (maxNumbers + maxUpperCase + maxLowerCase + maxSpecial <= maxLength) {   // Las entradas son validas
+                if(maxNumbers + maxUpperCase + maxLowerCase + maxSpecial === 12){
+                    alert('Es igual al total');
+                }else{
+                    alert('Es menor al total'); //Tengo que generar los que quedan
+                }
+            }else{
+                alert('Error. El limite de caracteres es ' + maxLength);
+            }
+
+        }
+
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
     </script>
 </body>
 
