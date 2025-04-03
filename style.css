@@ -50,7 +50,7 @@ input[type="button"]:hover {
 }
 
 .logo {
-    height: 15vh;
+    height: 12vh;
     margin-right: 100px;
 }
 
@@ -74,4 +74,20 @@ input[type="button"]:hover {
 
 h2{
     text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 20px; 
+    margin-top: 10px;
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }

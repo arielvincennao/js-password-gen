@@ -13,34 +13,40 @@
     <div class="container">
         <img src="logo.png" class="logo animate__animated animate__backInDown" alt="Logo">
         <form id="passwordForm">
-            <!-- Step 1: Plataforma and Longitud máxima -->
             <div id="step1">
-                <label for="maxLength">Max characters</label>
-                <input type="number" id="maxLength" name="maxLength" min="1" max="20" value="12" required>
-                <input type="button" value="Next" onclick="nextStep()">
+                <div class="input-group">
+                    <label for="maxLength">Max characters</label>
+                    <input type="number" id="maxLength" name="maxLength" min="1" max="20" value="12" required>
+                </div>
+                <div class="button-container">
+                    <input type="button" value="Next" onclick="nextStep()">
+                </div>
             </div>
-
-            <!-- Step 2: Other fields -->
+            
             <div id="step2" class="hidden">
-                <label for="maxNumbers">Number of numbers</label>
-                <input type="number" id="maxNumbers" name="maxNumbers" min="0" max="10" value="3">
-
-                <label for="maxUpperCase">Number of uppercases</label>
-                <input type="number" id="maxUpperCase" name="maxUpperCase" min="0" max="10" value="3">
-
-                <label for="maxLowerCase">Number of lowercases</label>
-                <input type="number" id="maxLowerCase" name="maxLowerCase" min="0" max="10" value="3">
-
-                <label for="maxSpecial">Number of special characters</label>
-                <input type="number" id="maxSpecial" name="maxSpecial" min="0" max="10" value="3">
-
-                <input type="button" value="Generate" onclick="generatePassword()">
-                <input type="button" value="Back" onclick="previousStep()">
+                <div class="input-group">
+                    <label for="maxNumbers">Number of numbers</label>
+                    <input type="number" id="maxNumbers" name="maxNumbers" min="0" max="10" value="3">
+                </div>
+                <div class="input-group">
+                    <label for="maxUpperCase">Number of uppercases</label>
+                    <input type="number" id="maxUpperCase" name="maxUpperCase" min="0" max="10" value="3">
+                </div>
+                <div class="input-group">
+                    <label for="maxLowerCase">Number of lowercases</label>
+                    <input type="number" id="maxLowerCase" name="maxLowerCase" min="0" max="10" value="3">
+                </div>
+                <div class="input-group">
+                    <label for="maxSpecial">Number of special characters</label>
+                    <input type="number" id="maxSpecial" name="maxSpecial" min="0" max="10" value="3">
+                </div>
+                <div class="button-container">
+                    <input type="button" value="Back" onclick="previousStep()">
+                    <input type="button" value="Generate" onclick="generatePassword()">
+                </div>
             </div>
-        </form>
         <h2 id="passwordTitle" class="hidden">Your password is:</h2>
         <h2 id="passwordResult" class="hidden"> - - -</h2>
-
     </div>
 
     <script>
@@ -94,7 +100,7 @@
 
         function generatePassword() {
             const maxLength = parseInt(document.getElementById("maxLength").value) || 0;
-            let asignedChars = maxLength;
+            let remainingChars = maxLength;
 
             // Cantidad de caracteres
             const maxNumbers = parseInt(document.getElementById("maxNumbers").value) || 0;
@@ -102,18 +108,34 @@
             const maxLowerCase = parseInt(document.getElementById("maxLowerCase").value) || 0;
             const maxSpecial = parseInt(document.getElementById("maxSpecial").value) || 0;
 
-
-            if (maxNumbers + maxUpperCase + maxLowerCase + maxSpecial <= maxLength) {   // Las entradas son validas
-                if(maxNumbers + maxUpperCase + maxLowerCase + maxSpecial === 12){
-                    alert('Es igual al total');
-                }else{
-                    alert('Es menor al total'); //Tengo que generar los que quedan
-                }
-            }else{
-                alert('Error. El limite de caracteres es ' + maxLength);
+            // Validar que la suma de caracteres no exceda la longitud total
+            const totalSelected = maxNumbers + maxUpperCase + maxLowerCase + maxSpecial;
+            if (totalSelected > maxLength) {
+                alert('Error. El límite de caracteres es ' + maxLength);
+                return;
             }
 
+            let password = [];
+
+            // Agregar caracteres según las selecciones del usuario
+            for (let i = 0; i < maxNumbers; i++) password.push(getRandomElement(charsN));
+            for (let i = 0; i < maxUpperCase; i++) password.push(getRandomElement(charsU));
+            for (let i = 0; i < maxLowerCase; i++) password.push(getRandomElement(charsD));
+            for (let i = 0; i < maxSpecial; i++) password.push(getRandomElement(charsE));
+
+            // Si la suma de caracteres es menor que la longitud total, agregar caracteres aleatorios
+            while (password.length < maxLength) {
+                const allChars = [...charsN, ...charsU, ...charsD, ...charsE];
+                password.push(getRandomElement(allChars));
+            }
+
+            // Mezclar la contraseña aleatoriamente
+            password = password.sort(() => Math.random() - 0.5);
+
+            // Mostrar la contraseña generada
+            document.getElementById("passwordResult").textContent = password.join("");
         }
+
 
         function getRandomElement(array) {
             return array[Math.floor(Math.random() * array.length)];
